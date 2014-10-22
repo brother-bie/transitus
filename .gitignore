@@ -46,5 +46,6 @@ _ReSharper*/
 BuiltFiles_*
 _notes/
 _Lib/
+Libraries/
 packages/*
 *.Fakes.*
