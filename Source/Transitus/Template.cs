@@ -9,12 +9,12 @@ namespace Transitus
 	public class Template : ITemplate
 	{
 		protected readonly IItem _item;
-		protected readonly IList<IItem> _items;
+		protected readonly IEnumerable<IItem> _items;
 		private IList<IItem> _inheritedTemplates;
 		private IList<TemplateField> _combinedFields;
 		private IList<TemplateField> _localFields;
 
-		public Template(IItem item, IList<IItem> items)
+		public Template(IItem item, IEnumerable<IItem> items)
 		{
 			Sitecore.Diagnostics.Assert.IsTrue(new Sitecore.Data.ID(item.TemplateId).Equals(Sitecore.TemplateIDs.Template), "item must be template");
 

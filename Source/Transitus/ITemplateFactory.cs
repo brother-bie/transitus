@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Transitus
 {
-	public interface ITemplateProvider
+	public interface ITemplateFactory
 	{
 		IEnumerable<ITemplate> Create(IEnumerable<IItem> items);
 	}

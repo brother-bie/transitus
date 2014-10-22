@@ -49,14 +49,14 @@
     <Compile Include="IItem.cs" />
     <Compile Include="ITemplate.cs" />
     <Compile Include="ITemplateField.cs" />
-    <Compile Include="ITemplateProvider.cs" />
+    <Compile Include="ITemplateFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sync\SyncFieldWrapper.cs" />
     <Compile Include="Sync\SyncItemDeserializer.cs" />
     <Compile Include="Sync\SyncItemWrapper.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="TemplateField.cs" />
-    <Compile Include="TemplateProvider.cs" />
+    <Compile Include="TemplateFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
