@@ -16,22 +16,22 @@ namespace Transitus
 
 			foreach (var templateItem in templateItems)
 			{
-				var combinedTemplateItems = GetBaseTemplates(templateItem, items);
+				var combinedTemplateItems = GetCombinedBaseTemplates(templateItem, items);
 				var combinedSections = items.Where(item => combinedTemplateItems.Select(i => i.Id).Contains(item.ParentId)).ToList();
 				var combinedFields = GetFields(combinedSections, items);
 				var localSections = items.Where(item => item.ParentId == templateItem.Id).ToList();
 				var localFields = GetFields(localSections, items);
+				var baseTemplateIds = combinedTemplateItems.Where(item => string.Equals(item.Id, templateItem.Id)).Select(item => item.Id);
 				var template = new Template
 				{
 					Id = templateItem.Id,
 					Name = templateItem.Name,
 					ParentId = templateItem.ParentId,
-					Path = templateItem.ItemPath
+					Path = templateItem.ItemPath,
+					CombinedFields = combinedFields,
+					LocalFields = localFields,
+					BaseTemplateIds = baseTemplateIds
 				};
-
-				template.CombinedTemplateItems = combinedTemplateItems;
-				template.CombinedFields = combinedFields;
-				template.LocalFields = localFields;
 
 				templates.Add(template);
 			}
@@ -39,30 +39,30 @@ namespace Transitus
 			return templates;
 		}
 
-		public IEnumerable<IItem> GetBaseTemplates(IItem item, IEnumerable<IItem> items)
+		public IEnumerable<IItem> GetCombinedBaseTemplates(IItem item, IEnumerable<IItem> items)
 		{
 			var baseTemplates = new List<IItem>();
 
-			GetBaseTemplates(item, baseTemplates, items);
+			GetCombinedBaseTemplates(item, baseTemplates, items);
 
 			return baseTemplates;
 		}
 
-		public void GetBaseTemplates(IItem item, IList<IItem> inheritedTemplates, IEnumerable<IItem> items)
+		public void GetCombinedBaseTemplates(IItem item, IList<IItem> baseTemplates, IEnumerable<IItem> items)
 		{
-			if (item != null && !inheritedTemplates.Where(i => i.Id == item.Id).Any())
+			if (item != null && !baseTemplates.Where(i => i.Id == item.Id).Any())
 			{
-				inheritedTemplates.Add(item);
+				baseTemplates.Add(item);
 
-				var baseField = item.SharedFields.Where(i => IsBaseTemplate(i.Id)).FirstOrDefault();
+				var baseTemplateField = item.SharedFields.Where(i => IsBaseTemplateField(i.Id)).FirstOrDefault();
 
-				if (baseField != null)
+				if (baseTemplateField != null)
 				{
-					foreach (var value in baseField.Value.Split('|'))
+					foreach (var value in baseTemplateField.Value.Split('|'))
 					{
-						var baseItem = items.Where(i => i.Id == value).FirstOrDefault();
+						var baseTemplateItem = items.Where(i => i.Id == value).FirstOrDefault();
 
-						GetBaseTemplates(baseItem, inheritedTemplates, items);
+						GetCombinedBaseTemplates(baseTemplateItem, baseTemplates, items);
 					}
 				}
 			}
@@ -95,7 +95,7 @@ namespace Transitus
 			return fields.OrderBy(field => field.Name).ToList();
 		}
 
-		public bool IsBaseTemplate(string id)
+		public bool IsBaseTemplateField(string id)
 		{
 			return new ID(id) == Sitecore.FieldIDs.BaseTemplate;
 		}

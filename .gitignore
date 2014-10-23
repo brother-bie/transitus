@@ -50,3 +50,4 @@ Libraries/
 packages/*
 *.Fakes.*
 NuGet/
+TestSerialisedFiles/
