@@ -2,16 +2,21 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Transitus</id>
-        <version>1.0.0.0</version>
-        <title>Fortis</title>
-        <authors>Kern Herskind Nightingale, Jason Bert</authors>
+        <version>1.0.1.0</version>
+        <title>Transitus</title>
+        <authors>Kern Herskind Nightingale,Jason Bert</authors>
         <owners>Fortis Collections</owners>
         <licenseUrl>https://github.com/Fortis-Collection/transitus/blob/master/LICENSE</licenseUrl>
-        <projectUrl>https://github.com/Fortis-Collection/transitus</projectUrl>
+        <projectUrl>http://fortis.ws/fortis-collection/transitus/</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>A .NET library for deserializing Sitecore item files into strongly typed objects</description>
-        <releaseNotes>Requires the Sitecore Kernel binary</releaseNotes>
+        <description>A .NET library for deserializing Sitecore item files into strongly typed objects
+
+* Requires the Sitecore Kernel binary</description>
+        <releaseNotes />
         <copyright>Copyright 2014</copyright>
-        <tags>Sitecore Transitus</tags>
+        <tags>Sitecore Transitus Fortis</tags>
     </metadata>
+    <files>
+        <file src="lib\net45\Transitus.dll" target="lib\net45\Transitus.dll" />
+    </files>
 </package>
