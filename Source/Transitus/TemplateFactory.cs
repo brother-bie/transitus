@@ -70,9 +70,29 @@ namespace Transitus
 
 		public IEnumerable<ITemplateField> GetFields(IEnumerable<IItem> sections, IEnumerable<IItem> items)
 		{
-			var fields = items.Where(field => sections.Select(i => i.Id).Contains(field.ParentId)).ToList();
+			var fieldItems = items.Where(field => sections.Select(i => i.Id).Contains(field.ParentId)).ToList();
+			var fields = new List<ITemplateField>();
 
-			return fields.Select(field => new TemplateField(field)).OrderBy(i => i.Name).ToList();
+			foreach (var fieldItem in fieldItems)
+			{
+				var typeName = fieldItem.SharedFields
+										.Where(f => string.Equals(f.Key, "type"))
+										.Select(i => i.Value)
+										.FirstOrDefault();
+
+				var field = new TemplateField
+				{
+					Id = fieldItem.Id,
+					Name = fieldItem.Name,
+					Key = fieldItem.Name.ToLower(),
+					TypeName = typeName,
+					TypeKey = typeName.ToLower()
+				};
+
+				fields.Add(field);
+			}
+
+			return fields.OrderBy(field => field.Name).ToList();
 		}
 
 		public bool IsBaseTemplate(string id)
