@@ -49,3 +49,4 @@ _Lib/
 Libraries/
 packages/*
 *.Fakes.*
+NuGet/
