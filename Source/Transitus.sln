@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transitus", "Transitus\Transitus.csproj", "{6F4BE8C0-8755-463D-B4EC-23CDF900A058}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transitus.Console", "Transitus.Console\Transitus.Console.csproj", "{27F70FA2-1BC2-454E-959E-B36DEE47A0F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +17,10 @@ Global
 		{6F4BE8C0-8755-463D-B4EC-23CDF900A058}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F4BE8C0-8755-463D-B4EC-23CDF900A058}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F4BE8C0-8755-463D-B4EC-23CDF900A058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27F70FA2-1BC2-454E-959E-B36DEE47A0F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27F70FA2-1BC2-454E-959E-B36DEE47A0F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27F70FA2-1BC2-454E-959E-B36DEE47A0F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27F70FA2-1BC2-454E-959E-B36DEE47A0F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

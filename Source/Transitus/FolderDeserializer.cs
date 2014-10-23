@@ -16,18 +16,18 @@ namespace Transitus
 			_deserializer = deserializer;
 		}
 
-		public IEnumerable<IItem> Deserialize(string folderPath, bool recursive)
+		public IEnumerable<IItem> Deserialize(string folderPath, bool recursive = true)
 		{
 			var items = new List<IItem>();
 
-			ReadItems(folderPath, recursive, items, false);
+			ReadItems(folderPath, recursive, items);
 
 			return items;
 		}
 
-		public void ReadItems(string folderPath, bool recursive, IList<IItem> items, bool includeLevel)
+		public void ReadItems(string folderPath, bool recursive, IList<IItem> items)
 		{
-			var files = includeLevel ? Directory.GetFiles(folderPath) : new string[] { folderPath + _deserializer.ItemFileExtension };
+			var files = Directory.GetFiles(folderPath);
 
 			foreach (var file in files)
 			{
@@ -45,7 +45,7 @@ namespace Transitus
 
 							if (IsValidDirectory(folderName))
 							{
-								ReadItems(folderName, recursive, items, true);
+								ReadItems(folderName, recursive, items);
 							}
 						}
 					}

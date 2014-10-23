@@ -8,6 +8,6 @@ namespace Transitus
 {
 	public interface IFolderDeserializer
 	{
-		IEnumerable<IItem> Deserialize(string folderPath, bool recursive);
+		IEnumerable<IItem> Deserialize(string folderPath, bool recursive = true);
 	}
 }
