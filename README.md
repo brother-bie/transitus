@@ -1,4 +1,4 @@
 transitus
 =========
 
-A framework for deserialising Sitecore item files
+A library for deserialising Sitecore item files into strongly typed objects
