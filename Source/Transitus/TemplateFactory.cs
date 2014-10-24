@@ -11,17 +11,17 @@ namespace Transitus
 	{
 		public IEnumerable<ITemplate> Create(IEnumerable<IItem> items)
 		{
-			var templateItems = items.Where(i => IsTemplate(i.TemplateId));
+			var templateItems = GetTemplates(items);
 			var templates = new List<ITemplate>();
 
 			foreach (var templateItem in templateItems)
 			{
 				var combinedTemplateItems = GetCombinedBaseTemplates(templateItem, items);
-				var combinedSections = items.Where(item => combinedTemplateItems.Select(i => i.Id).Contains(item.ParentId)).ToList();
+				var combinedSections = GetCombinedSections(combinedTemplateItems, items);
 				var combinedFields = GetFields(combinedSections, items);
-				var localSections = items.Where(item => item.ParentId == templateItem.Id).ToList();
+				var localSections = GetLocalSections(templateItem, items);
 				var localFields = GetFields(localSections, items);
-				var baseTemplateIds = combinedTemplateItems.Where(item => string.Equals(item.Id, templateItem.Id)).Select(item => item.Id);
+				var baseTemplateIds = GetBaseTemplatesIds(templateItem, combinedTemplateItems);
 				var template = new Template
 				{
 					Id = templateItem.Id,
@@ -68,6 +68,11 @@ namespace Transitus
 			}
 		}
 
+		public IEnumerable<string> GetBaseTemplatesIds(IItem templateItem, IEnumerable<IItem> combinedTemplateItems)
+		{
+			return combinedTemplateItems.Where(item => !string.Equals(item.Id, templateItem.Id)).Select(item => item.Id);
+		}
+
 		public IEnumerable<ITemplateField> GetFields(IEnumerable<IItem> sections, IEnumerable<IItem> items)
 		{
 			var fieldItems = items.Where(field => sections.Select(i => i.Id).Contains(field.ParentId)).ToList();
@@ -93,6 +98,21 @@ namespace Transitus
 			}
 
 			return fields.OrderBy(field => field.Name).ToList();
+		}
+
+		public IEnumerable<IItem> GetCombinedSections(IEnumerable<IItem> combinedTemplateItems, IEnumerable<IItem> items)
+		{
+			return items.Where(item => combinedTemplateItems.Select(i => i.Id).Contains(item.ParentId)).ToList();
+		}
+
+		public IEnumerable<IItem> GetLocalSections(IItem templateItem, IEnumerable<IItem> items)
+		{
+			return items.Where(item => item.ParentId == templateItem.Id).ToList();
+		}
+
+		public IEnumerable<IItem> GetTemplates(IEnumerable<IItem> items)
+		{
+			return items.Where(i => IsTemplate(i.TemplateId));
 		}
 
 		public bool IsBaseTemplateField(string id)
