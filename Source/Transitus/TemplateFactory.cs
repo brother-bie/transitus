@@ -12,7 +12,7 @@ namespace Transitus
 		public IEnumerable<ITemplate> Create(IEnumerable<IItem> items)
 		{
 			var templateItems = GetTemplates(items);
-			var templates = new List<ITemplate>();
+			var templates = new List<Template>();
 
 			foreach (var templateItem in templateItems)
 			{
@@ -34,6 +34,11 @@ namespace Transitus
 				};
 
 				templates.Add(template);
+			}
+
+			foreach (var template in templates)
+			{
+				template.BaseTemplates = templates.Where(t => t.Id != template.Id && template.BaseTemplateIds.Contains(t.Id));
 			}
 
 			return templates;
